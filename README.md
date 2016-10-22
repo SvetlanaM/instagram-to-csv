@@ -1,5 +1,5 @@
-## Scrape data from Instagram
-============================
+# Scrape data from Instagram
+
 This is the very first version of this code. This code scrapes data from [Instagram](https://www.instagram.com/) social network. Since Instagram, changed review requirements for API usage, it is not so easy get any data from this social network. 
 
 ### Requirements
