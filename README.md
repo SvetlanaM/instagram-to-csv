@@ -17,14 +17,12 @@ This is the very first version of this code. This code scrapes data from [Instag
 5. Enter the name of the instagram account (example: swetus).
 
 ### Error messages
-==============
 1. The server could not fulfill the request. 
 2. We failed reach the server.
 3. Data in older format.
 4. No instagram account found.
 
 ## ToDo
-=======
 1. Support for code in older format 
 2. Exception for private accounts
 3. Download comments from post detail
