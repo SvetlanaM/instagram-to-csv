@@ -13,7 +13,7 @@ This is the very first version of this code. This code scrapes data from [Instag
    <code>pip install -r requirements.txt</code>
 3. Create csv folder in your project
 4. Run code:
-   <code>python scrapper.py</code>
+   <code>python main.py</code>
 5. Enter the name of the instagram account (example: swetus).
 
 ### Error messages
