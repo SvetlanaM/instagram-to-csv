@@ -30,10 +30,16 @@ if __name__ == '__main__':
         soup = BeautifulSoup(page)
         HTML =str(soup)
         JSON = re.compile('window._sharedData = ({.*?});', re.DOTALL)
+
         matches = JSON.search(HTML)
         data = matches.group(1)
-        json_acceptable_string = data.replace("'", "\"")
-        d = json.loads(json_acceptable_string)
+
+        try:
+            json_acceptable_string = data.replace("'", "\"")
+            d = json.loads(json_acceptable_string)
+        except:
+            print ("Data in older format")
+            exit(1)
         new_data = d["entry_data"]["ProfilePage"][0]["user"]["media"]["nodes"]
 
         for i in new_data:
