@@ -5,6 +5,7 @@ import json
 import csv
 import os, glob
 from urllib.error import URLError, HTTPError
+import socket
 
 if __name__ == '__main__':
     final_list = []
@@ -34,13 +35,19 @@ if __name__ == '__main__':
         matches = JSON.search(HTML)
         data = matches.group(1)
 
+        
+
+
+
         try:
-            json_acceptable_string = data.replace("'", "\"")
+            json_acceptable_string = data.replace("'", "]")
             d = json.loads(json_acceptable_string)
+            new_data = d["entry_data"]["ProfilePage"][0]["user"]["media"]["nodes"]
         except:
             print ("Data in older format")
             exit(1)
-        new_data = d["entry_data"]["ProfilePage"][0]["user"]["media"]["nodes"]
+
+
 
         for i in new_data:
             try:
@@ -56,12 +63,19 @@ if __name__ == '__main__':
             get_page(next_page)
             break
 
+    try:
+        if count == 0:
+            if instagram_account == "":
+                print ("No instagram_account")
+                exit(1)
+    except socket.error as ex:
+        print (ex)
 
-    if count == 0:
-        if instagram_account == "":
-            print ("No instagram_account")
-            exit(1)
-        get_page(0)
+
+
+
+
+    get_page(0)
 
     with open('csv/' + instagram_account + '.csv', 'w') as csv_file:
         a = csv.writer(csv_file, delimiter=',')
