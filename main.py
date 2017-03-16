@@ -6,6 +6,7 @@ import csv
 import os, glob
 from urllib.error import URLError, HTTPError
 import socket
+import ssl
 
 if __name__ == '__main__':
     final_list = []
@@ -17,6 +18,7 @@ if __name__ == '__main__':
         global count
         count += 1
 
+        ssl._create_default_https_context = ssl._create_unverified_context
         url = "https://www.instagram.com/" + instagram_account + "/?max_id=" + str(max_id)
         try:
             page = urlopen(url)
@@ -28,14 +30,16 @@ if __name__ == '__main__':
             print('We failed to reach a server.')
             print('Reason: ', e.reason)
             exit(1)
-        soup = BeautifulSoup(page)
+        except SSLError as e:
+            print ("a")
+        soup = BeautifulSoup(page, "html.parser")
         HTML =str(soup)
         JSON = re.compile('window._sharedData = ({.*?});', re.DOTALL)
 
         matches = JSON.search(HTML)
         data = matches.group(1)
 
-        
+
 
 
 
@@ -75,7 +79,7 @@ if __name__ == '__main__':
 
 
 
-    get_page(0)
+    get_page(1)
 
     with open('csv/' + instagram_account + '.csv', 'w') as csv_file:
         a = csv.writer(csv_file, delimiter=',')
