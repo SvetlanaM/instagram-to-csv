@@ -30,18 +30,12 @@ if __name__ == '__main__':
             print('We failed to reach a server.')
             print('Reason: ', e.reason)
             exit(1)
-        except SSLError as e:
-            print ("a")
         soup = BeautifulSoup(page, "html.parser")
         HTML =str(soup)
         JSON = re.compile('window._sharedData = ({.*?});', re.DOTALL)
 
         matches = JSON.search(HTML)
         data = matches.group(1)
-
-
-
-
 
         try:
             json_acceptable_string = data.replace("'", "]")
@@ -51,8 +45,6 @@ if __name__ == '__main__':
             print ("Data in older format")
             exit(1)
 
-
-
         for i in new_data:
             try:
                 final_list.append([i["code"], i["date"], i["comments"]["count"], i["likes"]["count"], i["caption"], i["thumbnail_src"]])
@@ -61,7 +53,6 @@ if __name__ == '__main__':
 
         next_page = d["entry_data"]["ProfilePage"][0]["user"]["media"]["page_info"]["end_cursor"]
         next_true = d["entry_data"]["ProfilePage"][0]["user"]["media"]["page_info"]["has_next_page"]
-
 
         while next_true != False:
             get_page(next_page)
@@ -74,10 +65,6 @@ if __name__ == '__main__':
                 exit(1)
     except socket.error as ex:
         print (ex)
-
-
-
-
 
     get_page(1)
 
